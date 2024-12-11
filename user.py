@@ -20,17 +20,46 @@ class Employee(User):
 class Admin(User):
     def __init__(self, name, phone, email, address):
         super().__init__(name, phone, email, address)
-        self.employees = [] #it would be our database
 
-    def add_employee(self,name,email,phone,address,age,designation,salary):
-        employee = Employee(name,email,phone,address,age,designation,salary)
+    def add_employee(self,restaurant,employee):
+        restaurant.add_employee(employee)
+
+    def view_empoyees(self,restaurant):
+        restaurant.view_empoyees()
+
+class Restaurant:
+    def __init__(self,name):
+        self.name = name
+        self.employees = [] #it would be our database
+    
+    def add_employee(self,employee):
         self.employees.append(employee)
-        print(f"{name} is added!!")
 
     def view_empoyees(self):
         print("employee list!!")
         for emp in self.employees:
             print(emp.name,emp.email,emp.phone,emp.address)
+        
+class Menu:
+    def __init__(self):
+        self.items = []
+
+    def add_menu_itm(self,item):
+        self.items.append(item)
+    
+    def find_item(self,item_name):
+        for item in self.items:
+            if item.name.lower() == item_name.lower():
+                return item
+        return None
+    
+    def remove_item(self,item_name):
+        item = self.find_item(item_name)
+        if item:
+            self.items.remove(item)
+            print("item deleted")
+        else:
+            print("item not found")
 
 ad = Admin("ashik",1234,"aasd@gmail.com","bajitpur")
 ad.add_employee("sagor","sagor@gmail.com",464798,"rajibpur",23,"bussinessman",25000)
