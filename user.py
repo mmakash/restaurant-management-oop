@@ -51,6 +51,28 @@ class Customer(User):
     def view_cart(self):
         print("view cart")
         print("Name\tPrice\tQuantity")
+        for item,quantity in self.cart.items.items():
+            print(f"{item.name},{item.price} {quantity}")
+        print(f"Total price: {self.cart.total_price}")
+
+class Order:
+    def __init__(self):
+        self.items = []
+    def add_item(self,item):
+        if item in self.items:
+            self.items[item] += item.quantity
+        else:
+            self.items[item] = item.quantity
+
+    def item_remove(self,item):
+        if item in self.items:
+            del self.items[item]
+
+    def total_price(self):
+        return sum(item.price * quantity for item,quantity in self.items.items())
+    def clear(self):
+        self.items = {}
+
 
 class Restaurant:
     def __init__(self,name):
@@ -87,7 +109,7 @@ class Menu:
         else:
             print("item not found")
     def show_menu(self):
-        print("***menu***")
+        print("----- Menu ----")
         print(f"Name\tPrice\tQuantity")
         for item in self.items:
             print(f"{item.name}\t{item.price}\t{item.quantity}")
@@ -102,8 +124,10 @@ class FoodItem:
 # ad = Admin("ashik",1234,"aasd@gmail.com","bajitpur")
 # ad.add_employee("sagor","sagor@gmail.com",464798,"rajibpur",23,"bussinessman",25000)
 mn = Menu()
-item = FoodItem("pizza",12.45,10)
-mn.add_menu_itm(item)
+item1 = FoodItem("pizza",12.45,10)
+item2 = FoodItem("Burger",10,30)
+mn.add_menu_itm(item1)
+mn.add_menu_itm(item2)
 mn.show_menu()
 
 
